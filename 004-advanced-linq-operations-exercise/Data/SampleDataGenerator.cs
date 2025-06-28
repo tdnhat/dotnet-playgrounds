@@ -151,9 +151,9 @@ namespace _004_advanced_linq_operations_exercise.Data
         public static SampleData GenerateAllData()
         {
             var categories = GenerateCategories();
-            var customers = GenerateCustomers(20);
-            var products = GenerateProducts(categories, 50);
-            var orders = GenerateOrders(customers, products, 1000);
+            var customers = GenerateCustomers(5);
+            var products = GenerateProducts(categories, 10);
+            var orders = GenerateOrders(customers, products, 50);
             
             return new SampleData
             {

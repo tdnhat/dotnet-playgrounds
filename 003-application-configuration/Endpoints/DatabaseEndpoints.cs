@@ -8,6 +8,11 @@ namespace _003_application_configuration.Endpoints
     {
         public static void MapDatabaseEndpoints(this IEndpointRouteBuilder endpoints)
         {
+            /// <summary>
+            /// Maps the /database-info endpoint to return database configuration details.
+            /// This endpoint retrieves the database connection string and settings,
+            /// masking sensitive information like the connection string.
+            /// </summary>
             endpoints.MapGet("/database-info", (IOptions<DatabaseOptions> options) =>
             {
                 var configDetails = new

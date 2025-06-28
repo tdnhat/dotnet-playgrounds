@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "004-advanced-linq-operation
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "005-to-do-list-console-app", "005-to-do-list-console-app\005-to-do-list-console-app.csproj", "{CA1314C6-E94E-40C9-989C-7C36B3A93742}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "006-collection-types", "006-collection-types\006-collection-types.csproj", "{3FEF99F4-1F6A-4CBC-A1AC-770870A425F6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -7,6 +7,10 @@ namespace _003_application_configuration.Endpoints
     {
         public static void MapApplicationEndpoints(this IEndpointRouteBuilder endpoints)
         {
+            /// <summary>
+            /// Maps the /app-info endpoint to return application configuration details.
+            /// This endpoint retrieves the application name and version from the configuration.
+            /// </summary>
             endpoints.MapGet("/app-info", (IOptions<ApplicationOptions> options) =>
             {
                 var configDetails = new
