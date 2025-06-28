@@ -102,46 +102,59 @@ dotnet run --Application:Name="My Command Line Application" --Database:TimeoutSe
 
 ### PowerShell
 ```powershell
-# Test default configuration
+# 1. Default configuration (lowest priority - appsettings.json, appsettings.Development.json)
 dotnet run
 
-# Test with environment variables (Application + Database)
+# 2. Production settings (set environment then run)
+$env:ASPNETCORE_ENVIRONMENT = "Production"
+dotnet run
+$env:ASPNETCORE_ENVIRONMENT = "Development"  # Reset back when done
+
+# 3. User secrets (overrides appsettings files)
+dotnet user-secrets set "Application:Name" "SECRET TEST APP"
+dotnet user-secrets set "Database:ConnectionString" "Server=secret;Database=SecretDB;User Id=secret;Password=secret123;"
+dotnet run
+dotnet user-secrets clear  # Optional: clear secrets when done
+
+# 4. Environment variables (overrides user secrets and files)
 $env:Application__Name = "ENV TEST APP"
 $env:Database__TimeoutSeconds = "25"
 $env:Database__ConnectionString = "Server=test;Database=TestDB;User Id=test;Password=test123;"
 dotnet run
-
-# Test with command line arguments
-dotnet run --Application:Name="CMD TEST APP" --Database:MaxRetryAttempts=8
-
-# Test user secrets
-dotnet user-secrets set "Application:Name" "SECRET TEST APP"
-dotnet user-secrets set "Database:ConnectionString" "Server=secret;Database=SecretDB;User Id=secret;Password=secret123;"
-dotnet run
-
-# Clear environment variables
 Remove-Item Env:\Application__Name -ErrorAction SilentlyContinue
 Remove-Item Env:\Database__* -ErrorAction SilentlyContinue
+
+# 5. Command line arguments (highest priority - overrides everything)
+dotnet run --Application:Name="CMD TEST APP" --Database:MaxRetryAttempts=8
 ```
 
 ### Command Prompt (cmd)
 ```cmd
-:: Test default configuration
+:: 1. Default configuration (lowest priority - appsettings.json, appsettings.Development.json)
 dotnet run
 
-:: Test with environment variables (Application + Database)
+:: 2. Production settings (set environment then run)
+set ASPNETCORE_ENVIRONMENT=Production
+dotnet run
+set ASPNETCORE_ENVIRONMENT=Development
+
+:: 3. User secrets (overrides appsettings files)
+dotnet user-secrets set "Application:Name" "SECRET TEST APP"
+dotnet user-secrets set "Database:ConnectionString" "Server=secret;Database=SecretDB;User Id=secret;Password=secret123;"
+dotnet run
+dotnet user-secrets clear
+
+:: 4. Environment variables (overrides user secrets and files)
 set Application__Name=ENV TEST APP
 set Database__TimeoutSeconds=25  
 set Database__ConnectionString=Server=test;Database=TestDB;User Id=test;Password=test123;
 dotnet run
-
-:: Test with command line arguments
-dotnet run --Application:Name="CMD TEST APP" --Database:MaxRetryAttempts=8
-
-:: Clear environment variables
 set Application__Name=
 set Database__TimeoutSeconds=
 set Database__ConnectionString=
+
+:: 5. Command line arguments (highest priority - overrides everything)
+dotnet run --Application:Name="CMD TEST APP" --Database:MaxRetryAttempts=8
 ```
 
 ## Configuration Features

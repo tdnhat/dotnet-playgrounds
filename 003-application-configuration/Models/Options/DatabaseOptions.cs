@@ -6,13 +6,13 @@ namespace _003_application_configuration.Models.Options
     {
         public const string SectionName = "Database";
 
-        [Required(ErrorMessage = "Connection string is required.")]
-        [MinLength(5, ErrorMessage = "Connection string must be at least 5 characters long.")]
+        [Required]
+        [MinLength(5)]
         public string ConnectionString { get; set; } = string.Empty;
-        [Range(1, 60, ErrorMessage = "Timeout must be between 1 and 60 seconds.")]
+        [Range(1, 60)]
         public int TimeoutSeconds { get; set; } = 30;
         public bool EnableRetry { get; set; } = true;
-        [Range(1, 10, ErrorMessage = "Max retry attempts must be between 1 and 10.")]
+        [Range(1, 10)]
         public int MaxRetryAttempts { get; set; } = 5;
     }
 }
